@@ -12,29 +12,42 @@ type Props = {
 }
 
 export const Results = ({ origin, destination, stops, errorHandler }: Props) => {
+  /**
+   * TODO: Create tests for this component
+   *
+   * Because this is the one of the most important features of my app.
+   * So if i will be short with time for test, i will prioritize that component to write it
+   */
+
   const [results, setResults] = useState<CalculationResult>([])
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     if (!origin || !destination) {
+      /**
+       * Show error if i don't have minimal required data from URL
+       */
+
       errorHandler('Data is incorrect')
     } else {
+      /**
+       * Calculating data based on data from URL
+       */
+
       const cities = [origin.value, ...(stops?.map((stop) => stop.value) || []), destination.value]
 
       Backend.calculateDistance(cities)
-        .then((data) => {
-          setResults(data)
-        })
-        .catch((e: string) => {
-          errorHandler(e)
-        })
-        .finally(() => {
-          setLoading(false)
-        })
+        .then((data) => setResults(data))
+        .catch((e: string) => errorHandler(e))
+        .finally(() => setLoading(false))
     }
   }, [])
 
   const totalDistance = useMemo(() => {
+    /**
+     * Calculate total distance between all the cities
+     */
+
     return results.reduce((sum, el) => sum + (el[1] || 0), 0)
   }, [results])
 

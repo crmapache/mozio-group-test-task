@@ -1,5 +1,8 @@
 import { City, FormInitialValues } from './types'
 
+/**
+ * Set or change URL param if value not nullish or if it nullish, just delete it.
+*/
 export const setOrDeleteSearchParams = (
   key: string,
   value: unknown,
@@ -20,11 +23,18 @@ export const setOrDeleteSearchParams = (
   return searchParams
 }
 
+/**
+ * Parse URL search parameter and handle errors.
+ */
 export const parseSearchParam = (value: string | null) => {
   if (value) {
     try {
       return JSON.parse(value)
     } catch (e) {
+      /**
+       * TODO: create some unified notifications for errors or use some package.
+       */
+
       return null
     }
   }
@@ -32,6 +42,10 @@ export const parseSearchParam = (value: string | null) => {
   return null
 }
 
+
+/**
+ * Parse URL search parameters and prepare object with initial form values.
+ */
 export const getFormInitialValues = (searchParams: URLSearchParams): FormInitialValues => {
   const origin = parseSearchParam(searchParams.get('origin'))
   const destination = parseSearchParam(searchParams.get('destination'))
@@ -48,6 +62,9 @@ export const getFormInitialValues = (searchParams: URLSearchParams): FormInitial
   }
 }
 
+/**
+ * Calculate distance between two points on the sphere.
+ */
 export const haversineDistance = (city1: City, city2: City) => {
   const toRad = (x: number) => {
     return (x * Math.PI) / 180

@@ -5,6 +5,9 @@ import { Result, Home } from '../../pages'
 import { Main } from '../../layouts/Main'
 
 export const App = () => {
+  /**
+   * TODO: Add 404 page.
+   */
   return (
     <Routes>
       <Route path="/" element={<Main />}>

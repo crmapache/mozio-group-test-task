@@ -11,6 +11,10 @@ export const Result = () => {
   const navigate = useNavigate()
   const [searchParams] = useSearchParams()
 
+  /**
+   * TODO: create some unified notifications for errors or use some package.
+   */
+
   const [error, setError] = useState<string | null>(null)
 
   const initialValues = getFormInitialValues(searchParams)

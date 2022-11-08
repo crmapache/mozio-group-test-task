@@ -25,6 +25,10 @@ export const SearchForm = ({ initialValues, readOnly = false }: Props) => {
   const [passengers, setPassengers] = useState(initialValues['passengers'] || '1')
 
   useEffect(() => {
+    /**
+     * When some form values is updates i will put it in the URL
+     */
+
     let params = setOrDeleteSearchParams('origin', cityOfOrigen, searchParams)
     params = setOrDeleteSearchParams('destination', cityOfDestination, params)
     params = setOrDeleteSearchParams('stops', intermediateCities, params)
@@ -35,18 +39,34 @@ export const SearchForm = ({ initialValues, readOnly = false }: Props) => {
   }, [cityOfOrigen, cityOfDestination, intermediateCities, tripDate, passengers])
 
   const deleteStopButtonHandler = (index: number) => () => {
+    /**
+     * Delete intermediate city
+     */
+
     setIntermediateCities((prevState) => prevState.filter((el, i) => i !== index))
   }
 
   const addStopButtonHandler = () => {
+    /**
+     * Add intermediate city.
+     */
+
     setIntermediateCities((prevState) => [...prevState, null])
   }
 
   const IntermediateCityChangeHandler = (index: number) => (value: CitySelectOption | null) => {
+    /**
+     * Change intermediate city value.
+     */
+
     setIntermediateCities((prevState) => prevState.map((el, i) => (i === index ? value : el)))
   }
 
   const calculateButtonHandler = () => {
+    /**
+     * Go to result page with correct URL params.
+     */
+
     navigate({
       pathname: '/result',
       search: `?${createSearchParams({
@@ -60,6 +80,10 @@ export const SearchForm = ({ initialValues, readOnly = false }: Props) => {
   }
 
   const isCanCalculate = useMemo(() => {
+    /**
+     * If form is filled correct.
+     */
+
     return (
       !!cityOfOrigen &&
       !!cityOfDestination &&

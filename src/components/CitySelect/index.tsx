@@ -25,6 +25,10 @@ export const CitySelect = ({
   const [loading, setLoading] = useState(false)
 
   const onAutocompleteChange = (e: React.SyntheticEvent, value: CitySelectOption | null) => {
+    /**
+     * Autocomplete change handler.
+     */
+
     onChange(value)
   }
 
@@ -36,6 +40,10 @@ export const CitySelect = ({
         const results = await Backend.getCityByPattern(value)
         setOptions(results.map((el: City) => ({ label: el[0], value: el })))
       } catch (e) {
+        /**
+         * TODO: create some unified notifications for errors or use some package.
+         */
+
         console.log(e)
       }
 
@@ -44,6 +52,10 @@ export const CitySelect = ({
   }
 
   const isOptionEqualToValue = (option: CitySelectOption, value: CitySelectOption) => {
+    /**
+     * Compare current value with options.
+     */
+
     return option.value.reduce((acc, cur, index) => (acc ? cur === value.value[index] : acc), true)
   }
 

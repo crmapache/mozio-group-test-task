@@ -22,6 +22,10 @@ export const DatePicker = ({
   const [isTouched, setIsTouched] = useState(false)
 
   const dateOnChangeHandler = (value: Dayjs | null) => {
+    /**
+     * Change local and external values.
+     */
+
     setDate(value)
     onChange(value)
   }
